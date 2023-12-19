@@ -14,8 +14,8 @@
     },
     "files": [
         "index.ts",
+        "nodeJsLambda.ts",
         "provider.ts",
-        "staticPage.ts",
         "utilities.ts"
     ]
 }

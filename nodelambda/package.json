@@ -1,0 +1,25 @@
+{
+    "name": "@pierskarsenbarg/nodelambda",
+    "version": "${VERSION}",
+    "bin": "bin/index.js",
+    "license": "Apache-2.0",
+    "dependencies": {
+        "@pulumi/aws": "^6.14.0",
+        "@pulumi/pulumi": "^3.38.0",
+        "esbuild": "^0.19.9"
+    },
+    "devDependencies": {
+        "@types/node": "^20.10.5",
+        "pkg": "^5.8.1",
+        "typescript": "^4.9.5",
+        "@typescript-eslint/eslint-plugin": "^6.14.0",
+        "@typescript-eslint/parser": "^6.15.0",
+        "eslint": "^8.56.0",
+        "json-schema-to-typescript": "^13.1.1"
+    },
+    "scripts": {
+        "lint": "eslint . --ext .ts",
+        "gen-types": "cp ../schema.json . && ts-node scripts/generate-provider-types.ts",
+        "gen-scripts": "curl https://raw.githubusercontent.com/pulumi/pulumi/master/pkg/codegen/schema/pulumi.json | json2ts -o scripts/pulumi-schema.d.ts --unreachableDefinitions --ignoreMinAndMaxItems"
+    }
+}

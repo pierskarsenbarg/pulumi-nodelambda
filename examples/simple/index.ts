@@ -1,8 +1,13 @@
-import * as xyz from "@pulumi/xyz";
+import * as nodelamda from "@pierskarsenbarg/nodelambda";
+import * as aws from "@pulumi/aws";
 
-const page = new xyz.StaticPage("page", {
-    indexContent: "<html><body><p>Hello world!</p></body></html>",
-});
+const role = new aws.iam.Role("node-lambda-role", {
+    assumeRolePolicy: aws.iam.assumeRolePolicyForPrincipal(aws.iam.Principals.LambdaPrincipal)
+})
 
-export const bucket = page.bucket;
-export const url = page.websiteUrl;
+const lambda = new nodelamda.NodeJsLambda("fn", {
+    role: role.arn,
+    path: "./app",
+    handler: "app.index",
+    runtime: aws.lambda.Runtime.NodeJS18dX
+})

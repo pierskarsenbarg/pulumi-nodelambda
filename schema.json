@@ -1,33 +1,40 @@
 {
-    "name": "xyz",
+    "name": "nodelambda",
     "resources": {
-        "xyz:index:StaticPage": {
+        "nodelambda:index:NodeJsLambda": {
             "isComponent": true,
             "inputProperties": {
-                "indexContent": {
+                "runtime": {
                     "type": "string",
-                    "description": "The HTML content for index.html."
+                    "description": "Identifier of the function's runtime. See [Runtimes](https://docs.aws.amazon.com/lambda/latest/dg/API_CreateFunction.html#SSS-CreateFunction-request-Runtime) for valid values.\n"
+                },
+                "role": {
+                    "type": "string",
+                    "description": "Amazon Resource Name (ARN) of the function's execution role. The role provides the function's identity and access to AWS services and resources.\n\nThe following arguments are optional:\n"
+                },
+                "handler": {
+                    "type": "string"
+                },
+                "memorySize": {
+                    "type": "number"
+                },
+                "path": {
+                    "type": "string"
                 }
             },
             "requiredInputs": [
-                "indexContent"
+                "path",
+                "runtime",
+                "role"
             ],
             "properties": {
-                "bucket": {
-                    "$ref": "/aws/v4.0.0/schema.json#/resources/aws:s3%2Fbucket:Bucket",
-                    "description": "The bucket resource."
-                },
-                "websiteUrl": {
-                    "type": "string",
-                    "description": "The website URL."
+                "functionName": {
+                    "type": "string"
                 }
-            },
-            "required": [
-                "bucket",
-                "websiteUrl"
-            ]
+            }
         }
     },
+    "types": {},
     "language": {
         "csharp": {
             "packageReferences": {
@@ -43,12 +50,14 @@
         },
         "nodejs": {
             "dependencies": {
-                "@pulumi/aws": "^5.0.0"
+                "@pulumi/aws": "^5.0.0",
+                "esbuild": "^0.19.9"
             },
             "devDependencies": {
                 "typescript": "^4.6.3"
             },
-            "respectSchemaVersion": true
+            "respectSchemaVersion": true,
+            "packageName": "@pierskarsenbarg/nodelambda"
         },
         "python": {
             "requires": {
