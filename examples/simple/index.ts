@@ -1,13 +1,10 @@
 import * as nodelamda from "@pierskarsenbarg/nodelambda";
-import * as aws from "@pulumi/aws";
 
-const role = new aws.iam.Role("node-lambda-role", {
-    assumeRolePolicy: aws.iam.assumeRolePolicyForPrincipal(aws.iam.Principals.LambdaPrincipal)
-})
+const roleArn = "arn:aws:iam::052848974346:role/node-lambda-role-809411e"
 
 const lambda = new nodelamda.NodeJsLambda("fn", {
-    role: role.arn,
+    role: roleArn,
     path: "./app",
     handler: "app.index",
-    runtime: aws.lambda.Runtime.NodeJS18dX
+    runtime: "nodejs18.x"
 })

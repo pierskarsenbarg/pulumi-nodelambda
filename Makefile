@@ -17,8 +17,8 @@ build:: build_provider build_dotnet_sdk build_nodejs_sdk build_python_sdk
 install:: install_provider install_dotnet_sdk install_nodejs_sdk
 
 # Ensure all dependencies are installed
-ensure::
-	npm install
+# ensure::
+# 	npm install
 
 gen_types:: 
 	cd ${PACK} && \
@@ -26,7 +26,7 @@ gen_types::
 		npm run gen-types
 
 # Provider
-build_provider:: ensure
+build_provider:: 
 	cp ${SCHEMA_PATH} ${PACK}
 	cd ${PACK} && \
        		npm install && \
@@ -105,8 +105,9 @@ build_nodejs_sdk:: gen_nodejs_sdk
 		rm ./bin/package.json.bak
 
 install_nodejs_sdk:: build_nodejs_sdk
-	npm link ${WORKING_DIR}/sdk/nodejs/bin
-
+	cd sdk/nodejs/bin && \
+		npm ci && \
+		npm link ${WORKING_DIR}/sdk/nodejs/bin
 
 # Python SDK
 
